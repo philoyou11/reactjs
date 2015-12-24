@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Basic Example with Click Counter</title>
+  </head>
+  <body>
+
+    <div id="message" align="center"></div>
+	
+	<div id="container"></div>
+
+	<script src="../bower_components/react/react.js"></script>	
+	<script src="../bower_components/react/react-dom.js"></script>	
+    <script src="../lib/browser.min.js"></script>
+    <script type="text/babel">
+      	var Counter = React.createClass({
+        	getInitialState: function () {
+          		return { 
+          			clickCount : 0,
+          			title      : 'merry christmas'
+          		};
+        	},
+        	handleClick: function () {
+          		this.setState(function(state) {
+            		return {clickCount: state.clickCount + 1};
+          		});
+        	},
+        	render: function () {
+          		return ( <h2 onClick={this.handleClick}>Click me! Number of clicks: {this.state.clickCount} speak something : {this.state.title}</h2> );
+        	}
+      	});
+	    ReactDOM.render(
+	        <Counter />,
+	        document.getElementById('message')
+	    );
+
+	    var MessageBox = React.createClass({
+	    	render : function(){
+	    		return ( <p>this is a p dom element from reactjs</p> );
+	    	}
+	    });
+	    	
+	    ReactDOM.render(
+	        <MessageBox />,
+	        document.getElementById('container')
+	    );
+
+    </script>
+  </body>
+</html>
