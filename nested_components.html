@@ -2,48 +2,60 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Basic Example with Click Counter</title>
+    <title>nested components</title>
+    <link rel="stylesheet" href="css/mods.css">
   </head>
   <body>
 
-    <div id="message" align="center"></div>
 	
 	<div id="container"></div>
 
-	<script src="../bower_components/react/react.js"></script>	
-	<script src="../bower_components/react/react-dom.js"></script>	
-    <script src="../lib/browser.min.js"></script>
+	<script src="bower_components/react/react.js"></script>	
+	<script src="bower_components/react/react-dom.js"></script>	
+    <script src="lib/browser.min.js"></script>
     <script type="text/babel">
-      	var Counter = React.createClass({
-        	getInitialState: function () {
-          		return { 
-          			clickCount : 0,
-          			title      : 'merry christmas'
-          		};
-        	},
-        	handleClick: function () {
-          		this.setState(function(state) {
-            		return {clickCount: state.clickCount + 1};
-          		});
-        	},
-        	render: function () {
-          		return ( <h2 onClick={this.handleClick}>Click me! Number of clicks: {this.state.clickCount} speak something : {this.state.title}</h2> );
-        	}
-      	});
-	    ReactDOM.render(
-	        <Counter />,
-	        document.getElementById('message')
-	    );
+        var SubBox = React.createClass({
+            render : function(){
+                return (
+                    <div className="row">        
+                        <p>thiis is sub message box from reactjs</p>
+                        <Footer />
+                    </div>        
+                );
+            }
+        });  	
 
 	    var MessageBox = React.createClass({
 	    	render : function(){
-	    		return ( <p>this is a p dom element from reactjs</p> );
+                var boxes = [];
+
+                for (var i=0; i<10; i++) {
+                    boxes.push( <SubBox key={'box-item-'+i} /> );
+                };
+
+	    		return (
+                    <div className="row">
+                        <h2 className='text'>this is a p dom element from reactjs</h2> 
+                        {boxes}
+                    </div>
+                );
 	    	}
 	    });
-	    	
+	    
+        var Footer = React.createClass({
+            render : function(){
+                return (
+                    <footer>this is footer</footer>
+                );
+            }
+        });
+
 	    ReactDOM.render(
 	        <MessageBox />,
-	        document.getElementById('container')
+	        document.getElementById('container'),
+            function(){
+                console.log('finish rendering');
+            }
 	    );
 
     </script>
